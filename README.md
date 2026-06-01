@@ -1,4 +1,4 @@
-# Tugas Pemrograman Web Pertemuan 10
+# Tugas Pemrograman Web Pertemuan 11
 
 ## Identitas
 - Nama: Muhammad Hamdi Yahya
@@ -10,18 +10,28 @@
 
 # Tugas yang dibuat
 
-## Tugas 1 - Migration Tabel Kategori 
-- Membuat migration untuk tabel `kategori`
-- Membuat Model `Kategori` dengan fillable
-- Membuat Seeder `KategoriSeeder` dengan 5 data kategori
-- Struktur tabel: id, nama_kategori, deskripsi, icon, warna, timestamps
+## Tugas 1 - Halaman Dashboard (30%)
+- Membuat `DashboardController` dengan method `index()`
+- Route: `/dashboard`
+- Menampilkan statistik: total buku, buku tersedia, buku habis
+- Menampilkan statistik: total anggota, anggota aktif, anggota nonaktif
+- Menampilkan list 5 buku terbaru dan 5 anggota terbaru
+- Quick links ke menu utama (Kelola Buku & Kelola Anggota)
 
-## Tugas 2 - Model Accessor & Scope 
-- Menambahkan accessor `status_stok_badge` dan `tahun_label` pada Model Buku
-- Menambahkan scope `stokMenipis`, `hargaRange`, dan `terbaru` pada Model Buku
-- Menambahkan accessor `status_badge` dan `kategori_usia` pada Model Anggota
-- Menambahkan scope `terdaftarBulanIni` pada Model Anggota
-- Membuat route testing `/test-accessor-scope`
+## Tugas 2 - Blade Component Card Buku (40%)
+- Membuat Blade Component `BukuCard` menggunakan `php artisan make:component BukuCard`
+- Properties: `$buku` (object) dan `$showActions` (boolean, default true)
+- Menampilkan: cover icon, judul, pengarang, harga, stok
+- Badge kategori dan status ketersediaan
+- Button actions (Detail, Edit) jika `$showActions = true`
+
+## Tugas 3 - Search & Filter Buku Advanced (30%)
+- Membuat method `search()` di `BukuController`
+- Route: `/buku/search`
+- Input keyword (search judul, pengarang, penerbit)
+- Filter kategori (dropdown)
+- Filter tahun (dropdown)
+- Filter ketersediaan (Semua/Tersedia/Habis)
 
 ---
 
@@ -29,23 +39,23 @@
 
 > Semua screenshot disimpan di folder `image/`
 
-## 1. Hasil Migration
-Menampilkan status migration yang berhasil dijalankan.
+## 1. Halaman Dashboard
+Menampilkan ringkasan statistik perpustakaan beserta data terbaru.
 
-![Hasil Migration](image/1.png)
-
----
-
-## 2. Hasil Seeder (Data Kategori di Database)
-Menampilkan 5 data kategori yang berhasil di-seed ke database.
-
-![Hasil Seeder](image/2.png)
+![Halaman Dashboard](image/1.png)
 
 ---
 
-## 3. Route `/test-accessor-scope`
-Menampilkan hasil testing accessor dan scope pada Model Buku dan Anggota.
+## 2. Halaman Daftar Buku dengan Form Search & Filter
+Menampilkan form pencarian dan filter advanced pada halaman daftar buku.
 
-![Hasil Testing Accessor & Scope](image/3.png)
+![Form Search & Filter](image/2.png)
+
+---
+
+## 3. Hasil Pencarian/Filter
+Menampilkan hasil setelah melakukan pencarian atau filter data buku.
+
+![Hasil Pencarian](image/3.png)
 
 ---

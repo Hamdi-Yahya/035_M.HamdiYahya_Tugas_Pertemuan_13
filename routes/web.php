@@ -1,51 +1,70 @@
 <?php
- 
+
+use App\Http\Controllers\AnggotaController;
+use App\Http\Controllers\BukuController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Buku;
 use App\Models\Anggota;
  
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('home');
+})->name('home');
+
+// Route::get('buku', function () {
+//     return view('buku');
+// })->name('buku.index');
+
+// Route::get('anggota', function () {
+//     return view('anggota');
+// })->name('anggota.index');
  
-// ========== TESTING BUKU ==========
- 
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::get('/buku/search', [BukuController::class, 'search'])->name('buku.search');
+
+Route::resource('buku', BukuController::class);
+
+Route::get('buku/kategori/{kategori}', [BukuController::class, 'filterKategori'])->name('buku.kategori');
+
+Route::resource('anggota', AnggotaController::class);
+
 // List all buku
-Route::get('/buku', function () {
-    $bukus = Buku::all();
+// Route::get('/buku', function () {
+//     $bukus = Buku::all();
     
-    $html = '<h1>Daftar Buku</h1>';
-    $html .= '<a href="/buku/create">Tambah Buku</a><br /><br />';
-    $html .= '<table border="1" cellpadding="10">';
-    $html .= '<tr>
-                <th>ID</th>
-                <th>Kode</th>
-                <th>Judul</th>
-                <th>Kategori</th>
-                <th>Harga</th>
-                <th>Stok</th>
-                <th>Aksi</th>
-              </tr>';
+//     $html = '<h1>Daftar Buku</h1>';
+//     $html .= '<a href="/buku/create">Tambah Buku</a><br /><br />';
+//     $html .= '<table border="1" cellpadding="10">';
+//     $html .= '<tr>
+//                 <th>ID</th>
+//                 <th>Kode</th>
+//                 <th>Judul</th>
+//                 <th>Kategori</th>
+//                 <th>Harga</th>
+//                 <th>Stok</th>
+//                 <th>Aksi</th>
+//               </tr>';
     
-    foreach ($bukus as $buku) {
-        $html .= '<tr>';
-        $html .= '<td>' . $buku->id . '</td>';
-        $html .= '<td>' . $buku->kode_buku . '</td>';
-        $html .= '<td>' . $buku->judul . '</td>';
-        $html .= '<td>' . $buku->kategori . '</td>';
-        $html .= '<td>' . $buku->harga_format . '</td>';
-        $html .= '<td>' . $buku->stok . '</td>';
-        $html .= '<td>
-                    <a href="/buku/' . $buku->id . '">Detail</a> | 
-                    <a href="/buku/' . $buku->id . '/edit">Edit</a>
-                  </td>';
-        $html .= '</tr>';
-    }
+//     foreach ($bukus as $buku) {
+//         $html .= '<tr>';
+//         $html .= '<td>' . $buku->id . '</td>';
+//         $html .= '<td>' . $buku->kode_buku . '</td>';
+//         $html .= '<td>' . $buku->judul . '</td>';
+//         $html .= '<td>' . $buku->kategori . '</td>';
+//         $html .= '<td>' . $buku->harga_format . '</td>';
+//         $html .= '<td>' . $buku->stok . '</td>';
+//         $html .= '<td>
+//                     <a href="/buku/' . $buku->id . '">Detail</a> | 
+//                     <a href="/buku/' . $buku->id . '/edit">Edit</a>
+//                   </td>';
+//         $html .= '</tr>';
+//     }
     
-    $html .= '</table>';
+//     $html .= '</table>';
     
-    return $html;
-});
+//     return $html;
+// })->name('buku.index');;
  
 // Show single buku
 Route::get('/buku/{id}', function ($id) {
@@ -71,42 +90,42 @@ Route::get('/buku/{id}', function ($id) {
     $html .= '</table>';
     
     return $html;
-});
+})->name('buku.index');;
  
 // ========== TESTING ANGGOTA ==========
  
 // List all anggota
-Route::get('/anggota', function () {
-    $anggotas = Anggota::all();
+// Route::get('/anggota', function () {
+//     $anggotas = Anggota::all();
     
-    $html = '<h1>Daftar Anggota</h1>';
-    $html .= '<table border="1" cellpadding="10">';
-    $html .= '<tr>
-                <th>ID</th>
-                <th>Kode</th>
-                <th>Nama</th>
-                <th>Email</th>
-                <th>Umur</th>
-                <th>Status</th>
-                <th>Aksi</th>
-              </tr>';
+//     $html = '<h1>Daftar Anggota</h1>';
+//     $html .= '<table border="1" cellpadding="10">';
+//     $html .= '<tr>
+//                 <th>ID</th>
+//                 <th>Kode</th>
+//                 <th>Nama</th>
+//                 <th>Email</th>
+//                 <th>Umur</th>
+//                 <th>Status</th>
+//                 <th>Aksi</th>
+//               </tr>';
     
-    foreach ($anggotas as $anggota) {
-        $html .= '<tr>';
-        $html .= '<td>' . $anggota->id . '</td>';
-        $html .= '<td>' . $anggota->kode_anggota . '</td>';
-        $html .= '<td>' . $anggota->nama . '</td>';
-        $html .= '<td>' . $anggota->email . '</td>';
-        $html .= '<td>' . $anggota->umur . ' tahun</td>';
-        $html .= '<td>' . $anggota->status . '</td>';
-        $html .= '<td><a href="/anggota/' . $anggota->id . '">Detail</a></td>';
-        $html .= '</tr>';
-    }
+//     foreach ($anggotas as $anggota) {
+//         $html .= '<tr>';
+//         $html .= '<td>' . $anggota->id . '</td>';
+//         $html .= '<td>' . $anggota->kode_anggota . '</td>';
+//         $html .= '<td>' . $anggota->nama . '</td>';
+//         $html .= '<td>' . $anggota->email . '</td>';
+//         $html .= '<td>' . $anggota->umur . ' tahun</td>';
+//         $html .= '<td>' . $anggota->status . '</td>';
+//         $html .= '<td><a href="/anggota/' . $anggota->id . '">Detail</a></td>';
+//         $html .= '</tr>';
+//     }
     
-    $html .= '</table>';
+//     $html .= '</table>';
     
-    return $html;
-});
+//     return $html;
+// })->name('anggota.index');
  
 // Show single anggota
 Route::get('/anggota/{id}', function ($id) {
@@ -131,7 +150,7 @@ Route::get('/anggota/{id}', function ($id) {
     $html .= '</table>';
     
     return $html;
-});
+})->name('anggota.index');
  
 // Testing Scope & Query
 Route::get('/test-query', function () {
